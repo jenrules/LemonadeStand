@@ -8,8 +8,7 @@ namespace LemonadeStand
 {
     class Recipe
     {
-        public string price;
-        
+        public string price;        
         public void SetPriceOfLemonade()
         {
             Console.ForegroundColor = ConsoleColor.Black;
@@ -61,7 +60,6 @@ namespace LemonadeStand
                 Console.WriteLine("How many ice cubes per pitcher would you like?");
                 string iceCubes = Console.ReadLine();
                 Console.WriteLine("Okay.");
-
                 Console.WriteLine("The new recipe is {0} lemons, {1} cups of sugar, and {2} ice cubes.", lemons, cupsOfSugar, iceCubes);
             }
             else

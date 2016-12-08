@@ -19,7 +19,7 @@ namespace LemonadeStand
             customerToday = customers[choice.Next(0, 30)];
             foreach (var customerToday in customers)
             {
-                if (customerToday >= 1 - 15 && weather.weatherToday == "sunny")
+                if (customerToday >= 1 && weather.weatherToday == "sunny")
                 {
                     Console.ForegroundColor = ConsoleColor.Black;
                     Console.BackgroundColor = ConsoleColor.Red;
@@ -29,7 +29,7 @@ namespace LemonadeStand
                     money.moneyLeft = money.moneyLeft + (Convert.ToDecimal(recipe.price));
                     Console.WriteLine("You have {0}.", money.moneyLeft);
                 }
-                else if (customerToday >= 16 - 30 && weather.weatherToday == "cloudy")
+                else if (customerToday >= 1 && weather.weatherToday == "cloudy")
                 {
                     Console.ForegroundColor = ConsoleColor.Black;
                     Console.BackgroundColor = ConsoleColor.DarkRed;
@@ -39,21 +39,23 @@ namespace LemonadeStand
                     money.moneyLeft = money.moneyLeft + (Convert.ToDecimal(recipe.price));
                     Console.WriteLine("You have {0}.", money.moneyLeft);
                 }
-                else if (customerToday <= 1 - 15 && weather.weatherToday == "windy")
+                else if (customerToday >= 1 && weather.weatherToday == "windy")
                 {
                     Console.ForegroundColor = ConsoleColor.Black;
                     Console.BackgroundColor = ConsoleColor.Blue;
                     Console.WriteLine("Here comes a customer.");
                     Console.WriteLine("I won't buy a lemonade today.");
                     Console.WriteLine("Yuck.");
+                    Console.WriteLine("You have {0}.", money.moneyLeft);
                 }
-                else if (customerToday <= 16 - 30 && weather.weatherToday == "rainy")
+                else if (customerToday >= 1 && weather.weatherToday == "rainy")
                 {
                     Console.ForegroundColor = ConsoleColor.Black;
                     Console.BackgroundColor = ConsoleColor.DarkBlue;
                     Console.WriteLine("Here comes a customer.");
                     Console.WriteLine("No lemonade for me.");
                     Console.WriteLine("Yuck.");
+                    Console.WriteLine("You have {0}.", money.moneyLeft);
                 }
             }
         }
