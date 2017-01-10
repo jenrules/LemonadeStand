@@ -6,68 +6,95 @@ using System.Threading.Tasks;
 
 namespace LemonadeStand
 {
-    class Recipe
+    public class Recipe
     {
-        public string price;        
-        public void SetPriceOfLemonade()
+        public double price;
+        public Recipe()
         {
-            Console.ForegroundColor = ConsoleColor.Black;
-            Console.BackgroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("You are allowed to create your own lemonade recipe, and to charge as much as you want.");
-            Console.WriteLine("The standard price for a cup of lemonade is .25.");
-            Console.WriteLine("Do you want to keep '.25' or 'change' the price?");
-            price = Console.ReadLine();
-            if (price.ToLower() == ".25")
-            {
-                Console.ForegroundColor = ConsoleColor.Black;
-                Console.BackgroundColor = ConsoleColor.White;
-                Console.WriteLine("Your price is .25 per cup of lemonade.");
-            }
-            else if (price.ToLower() == "change")
-            {
-                Console.ForegroundColor = ConsoleColor.Black;
-                Console.BackgroundColor = ConsoleColor.White;
-                Console.WriteLine("What would you like to change the price to?");
-                price = Console.ReadLine();
-                Console.WriteLine("Okay. Your price is {0}.", price);
-            }
-            else
-            {
-                Console.WriteLine("Error. Please write 'keep' or 'change'.");
-                SetPriceOfLemonade();
-            }
         }
-        public void HowToMakeLemonade()
+
+        public double SetPriceOfLemonade(Recipe recipe, Game game, Money money, Store store, Inventory inventory, Customer customer, Weather weather, Day day)
         {
-            Console.ForegroundColor = ConsoleColor.Black;
-            Console.BackgroundColor = ConsoleColor.Gray;
-            Console.WriteLine("Each pitcher of lemonade holds 10 cups of lemonade.");
-            Console.WriteLine("The recommended recipe for a pitcher is 4 lemons, 4 cups of sugar, and 4 ice cubes.");
-            Console.WriteLine("Do you want to 'keep' or 'change' the recipe?");
-            string recipe = Console.ReadLine();
-            if (recipe.ToLower() == "keep")
+            Console.WriteLine("You are allowed to charge to charge as much as you want for a cup of lemonade.");
+            Console.WriteLine("The standard price is .25.");
+            try
             {
+                Console.WriteLine("How much you would like to charge for a cup of lemonade today?");
+                price = double.Parse(Console.ReadLine());
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Please try again");
+                return SetPriceOfLemonade(recipe, game, money, store, inventory, customer, weather, day);
+            }
+            HowToMakeLemonade(game, money, inventory, store, customer, recipe, weather, day);
+            return price;
+        }
+        public double lemons;
+        public double sugarCubes;
+        public double iceCubes;
+        public void HowToMakeLemonade(Game game, Money money, Inventory inventory, Store store, Customer customer, Recipe recipe, Weather weather, Day day)
+        {
+            Console.WriteLine("The standard recipe is one lemon, one sugar cube, and four ice cubes to make a cup of lemonade.");
+            Console.WriteLine("You are allowed to keep or change the recipe.");
+            Console.WriteLine("Type 'keep' or 'change'?");
+            string changeRecipe = Console.ReadLine();
+            if (changeRecipe.ToLower() == "keep")
+            {
+                lemons = 1;
+                iceCubes = 4;
+                sugarCubes = 1;
                 Console.WriteLine("Time to sell some lemonade!.");
+                game.BuySupplies(money, inventory, store, customer, recipe, weather, game, day);
             }
-            else if (recipe.ToLower() == "change")
+            else if (changeRecipe.ToLower() == "change")
             {
-                Console.WriteLine("How many lemons per pitcher would you like?");
-                string lemons = Console.ReadLine();
+                Console.WriteLine("How many lemons per cup would you like?");
+                try
+                {
+                    double lemons = Double.Parse(Console.ReadLine());
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("Please enter a positive whole number, or zero");
+                    Console.WriteLine("How many lemons per cup would you like?");
+                    double lemons = Double.Parse(Console.ReadLine());
+                }
+
                 Console.WriteLine("Okay.");
-                Console.WriteLine("How many cups of sugar per pitcher would you like?");
-                string cupsOfSugar = Console.ReadLine();
+                Console.WriteLine("How many sugar cubes per cup would you like?");
+                try
+                {
+                    double sugarCubes = Double.Parse(Console.ReadLine());
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("Please enter a positive whole number, or zero");
+                    Console.WriteLine("How many sugar cubes per cup would you like?");
+                    double sugarCubes = Double.Parse(Console.ReadLine());
+                }
                 Console.WriteLine("Okay.");
-                Console.WriteLine("How many ice cubes per pitcher would you like?");
-                string iceCubes = Console.ReadLine();
+                Console.WriteLine("How many ice cubes per cup would you like?");
+                try
+                {
+                    double iceCubes = Double.Parse(Console.ReadLine());
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("Please enter a positive whole number, or zero");
+                    Console.WriteLine("How many ice cubes per cup would you like?");
+                    double iceCubes = Double.Parse(Console.ReadLine());
+                }
                 Console.WriteLine("Okay.");
-                Console.WriteLine("The new recipe is {0} lemons, {1} cups of sugar, and {2} ice cubes.", lemons, cupsOfSugar, iceCubes);
+                Console.WriteLine("The new recipe is {0} lemons, {1} sugar cubes, and {2} ice cubes.", lemons, sugarCubes, iceCubes);
+                game.BuySupplies(money, inventory, store, customer, recipe, weather, game, day);
             }
             else
             {
                 Console.WriteLine("Error. Please write 'keep' or 'change'.");
-                HowToMakeLemonade();
+                HowToMakeLemonade(game, money, inventory, store, customer, recipe, weather, day);
             }
-        }
+        }  c
     }
 }
 

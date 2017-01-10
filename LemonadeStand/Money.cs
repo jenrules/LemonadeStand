@@ -6,24 +6,30 @@ using System.Threading.Tasks;
 
 namespace LemonadeStand
 {
-    class Money
+    public class Money
     {
-        public decimal moneyLeft;        
+        public double moneyLeft;
+        public double amountToSpend;
         public Money()
         {
-            moneyLeft = 20.00m;
-        }        
-        public bool SpendMoney(decimal amountToSpend)
+            moneyLeft = 20.00;
+        }
+        public bool SpendMoney(double amountToSpend)
         {
-            if(moneyLeft - amountToSpend >= 0)
+            if (moneyLeft - amountToSpend >= 0)
             {
-                moneyLeft -= amountToSpend;
+                Math.Round(moneyLeft -= amountToSpend);
                 return true;
             }
             else
             {
                 return false;
-            }            
+            }
+        }
+        public double ShowMoney(Customer customer, Inventory inventory, Money money, Recipe recipe)
+        {
+            Console.WriteLine("You have {0} dollars.", moneyLeft);
+            return Math.Round(moneyLeft);
         }
     }
 }

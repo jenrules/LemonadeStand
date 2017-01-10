@@ -6,66 +6,103 @@ using System.Threading.Tasks;
 
 namespace LemonadeStand
 {
-    class Store
+    public class Store
     {
-        public int buyLemons;
-        public int buyIceCubes;
-        public int buySugar;
-
-        public decimal lemonPrice = .20m;
-        public void BuyLemons(Money money)
+        public double numberOfLemons;
+        public double lemonPrice = .20;
+        public Store()
         {
-            Console.WriteLine("Ten lemons cost $2.00. Twenty lemons cost $4.00. Thirty lemons cost $6.00. Forty lemons cost $8.00.");
+        }
+        public double BuyLemons(Money money, Inventory inventory, Customer customer, Recipe recipe, Weather weather, Game game, Store store, Day day)
+        {
+            Console.WriteLine("You currently have {0} lemons.", inventory.amountOfLemons);
+            Console.WriteLine("Lemons costs .20 per lemon.");
             Console.WriteLine("How many lemons would you like to buy?");
-            Console.WriteLine("Choose '10', '20', '30', or '40'");
-            buyLemons = int.Parse(Console.ReadLine());
-            Console.WriteLine("You have {0} lemons.", buyLemons);
-            bool moneyLeft = money.SpendMoney(Convert.ToDecimal(buyLemons) * lemonPrice);
-            if (moneyLeft == true)
-            {       
-                Console.WriteLine("You have {0}.", money.moneyLeft);
+            try
+            {
+                numberOfLemons = int.Parse(Console.ReadLine());
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Please enter a number, or zero");
+                return BuyLemons(money, inventory, customer, recipe, weather, game, store, day);
+            }
+            if (money.moneyLeft - (numberOfLemons * .20) < 0)
+            {
+                Console.WriteLine("Sorry you do not have enough money to make that purchase. Please try again.");
+                BuyLemons(money, inventory, customer, recipe, weather, game, store, day);
             }
             else
             {
-                Console.WriteLine("You don't have enough money to buy any lemons.");
+                inventory.amountOfLemons = inventory.amountOfLemons + numberOfLemons;
+                money.moneyLeft = money.moneyLeft - (numberOfLemons * .20);
+                Console.WriteLine("You have purchased {0} lemons.", numberOfLemons);
+                money.ShowMoney(customer, inventory, money, recipe);
             }
+            BuyIceCubes(money, inventory, customer, recipe, weather, game, store, day);
+            return money.moneyLeft;
         }
-        public decimal iceCubePrice = .01m;
-        public void BuyIceCubes(Money money)
+        public double numberOfIceCubes;
+        public double iceCubePrice = .01;
+        public double BuyIceCubes(Money money, Inventory inventory, Customer customer, Recipe recipe, Weather weather, Game game, Store store, Day day)
         {
-            Console.WriteLine("100 ice cubes cost $1.00. 200 ice cubes cost $2.00. 300 ice cubes cost $3.00. 400 ice cubes cost $4.00.");
+            Console.WriteLine("You currently have {0} ice cubes.", inventory.amountOfIceCubes);
+            Console.WriteLine("Lemons costs .01 per ice cube.");
             Console.WriteLine("How many ice cubes would you like to buy?");
-            Console.WriteLine("Choose '100', '200', '300', or '400'");
-            buyIceCubes = int.Parse(Console.ReadLine());
-            Console.WriteLine("You have {0} ice cubes.", buyIceCubes);
-            bool moneyLeft = money.SpendMoney(Convert.ToDecimal(buyIceCubes) * iceCubePrice);
-            if (moneyLeft == true)
-            { 
-                Console.WriteLine("You have {0}.", money.moneyLeft);
+            try
+            {
+                numberOfIceCubes = int.Parse(Console.ReadLine());
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Please enter a positive whole number, or zero");
+                return BuyIceCubes(money, inventory, customer, recipe, weather, game, store, day);
+            }
+            if (money.moneyLeft - (numberOfIceCubes * .01) < 0)
+            {
+                Console.WriteLine("Sorry you do not have enough money to make that purchase. Please try again.");
+                BuyIceCubes(money, inventory, customer, recipe, weather, game, store, day);
             }
             else
             {
-                Console.WriteLine("You don't have enough money to buy any ice cubes.");
+                inventory.amountOfIceCubes = inventory.amountOfIceCubes + numberOfIceCubes;
+                money.moneyLeft = money.moneyLeft - (numberOfIceCubes * .01);
+                Console.WriteLine("You have purchased {0} ice cubes", numberOfIceCubes);
+                money.ShowMoney(customer, inventory, money, recipe);
             }
+            BuySugarCubes(money, inventory, customer, recipe, weather, game, store, day);
+            return money.moneyLeft;
         }
-        public decimal cupSugarPrice = .40m;
-        public void BuySugar(Money money)
+        public double numberOfSugarCubes;
+        public double sugarCubePrice = .40;
+        public double BuySugarCubes(Money money, Inventory inventory, Customer customer, Recipe recipe, Weather weather, Game game, Store store, Day day)
         {
-            Console.WriteLine("Five cups of sugar cost $2.00. Ten cups of sugar cost $4.00. Fifteen cups of sugar cost $6.00.");
-            Console.WriteLine("Twenty cups of sugar cost $8.00.");
-            Console.WriteLine("How many cups of sugar would you like to buy?");
-            Console.WriteLine("Choose '5', '10', '15', or '20'");
-            buySugar = int.Parse(Console.ReadLine());
-            Console.WriteLine("You have {0} cups of suger.", buySugar);
-            bool moneyLeft = money.SpendMoney(Convert.ToDecimal(buySugar) * cupSugarPrice);
-            if (moneyLeft == true)
+            Console.WriteLine("You currently have {0} sugar cubes.", inventory.amountOfSugarCubes);
+            Console.WriteLine("Sugar cubes costs .40 per sugar cube.");
+            Console.WriteLine("How many sugar cubes would you like to buy?");
+            try
             {
-                Console.WriteLine("You have {0}.", money.moneyLeft);
+                numberOfSugarCubes = int.Parse(Console.ReadLine());
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Please enter a positive whole number, or zero");
+                return BuySugarCubes(money, inventory, customer, recipe, weather, game, store, day);
+            }
+            if (money.moneyLeft - (numberOfSugarCubes * .40) < 0)
+            {
+                Console.WriteLine("Sorry you do not have enough money to make that purchase. Please try again.");
+                BuySugarCubes(money, inventory, customer, recipe, weather, game, store, day);
             }
             else
             {
-                Console.WriteLine("You don't have enough money to buy any cups of sugar.");
+                inventory.amountOfSugarCubes = inventory.amountOfSugarCubes + numberOfSugarCubes;
+                money.moneyLeft = money.moneyLeft - (numberOfSugarCubes * .1);
+                Console.WriteLine("You have purchased {0} sugar cubes", numberOfSugarCubes);
+                money.ShowMoney(customer, inventory, money, recipe);
+                customer.PotentialCustomers(inventory, money, recipe, weather, customer, game, store, day);
             }
+            return money.moneyLeft;
         }
     }
 }

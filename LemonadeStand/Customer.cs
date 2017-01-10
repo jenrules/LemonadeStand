@@ -6,58 +6,110 @@ using System.Threading.Tasks;
 
 namespace LemonadeStand
 {
-    class Customer
+    public class Customer
     {
-        public int oneLemon = 1;
-        public int fourIceCubes = 4;
-        public int oneSugar = 1;
-        public int customerToday;
-        List<int> customers = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30 };
-        Random choice = new Random();
-        public void GetCustomer(Weather weather, Recipe recipe, Money money)
+        List<int> customers = new List<int> { 1, 50 };
+        public Customer()
         {
-            customerToday = customers[choice.Next(0, 30)];
-            foreach (var customerToday in customers)
+        }
+        public bool willBuy;
+        public int PotentialCustomers(Inventory inventory, Money money, Recipe recipe, Weather weather, Customer customer, Game game, Store store, Day day)
+        {
+            weather.ShowActualWeather(recipe, game, money, store, inventory, customer, weather, day);
+            Console.WriteLine("Here come some customers!");
+            Random randomC = new Random();
+            int randomCustomer = randomC.Next(0, 50);
+            for (int i = 0; i < 10; i++)
             {
-                if (customerToday >= 1 && weather.weatherToday == "sunny")
+                if (randomCustomer >= 0 && randomCustomer <= 10)
                 {
-                    Console.ForegroundColor = ConsoleColor.Black;
-                    Console.BackgroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Here comes a customer.");
-                    Console.WriteLine("I'll buy a lemonade for {0}.", recipe.price);
-                    Console.WriteLine("Yum.");
-                    money.moneyLeft = money.moneyLeft + (Convert.ToDecimal(recipe.price));
-                    Console.WriteLine("You have {0}.", money.moneyLeft);
+                    inventory.CheckInventory(recipe, game, store, money, inventory, customer, weather, day);
+                    if (weather.weatherNumber == 1 || weather.weatherNumber == 4 || weather.weatherNumber == 5 && recipe.price <= 1.00)
+                    {
+                        willBuy = true;
+                        inventory.SubtractInventory(recipe);
+                        money.moneyLeft = money.moneyLeft + recipe.price;
+                    }
+                    else if (weather.weatherNumber == 2 || weather.weatherNumber == 3 && recipe.price <= .05)
+                    {
+                        willBuy = true;
+                        inventory.SubtractInventory(recipe);
+                        money.moneyLeft = money.moneyLeft + recipe.price;
+                    }
+                    else willBuy = false;
                 }
-                else if (customerToday >= 1 && weather.weatherToday == "cloudy")
+                else if (randomCustomer >= 11 && randomCustomer <= 20)
                 {
-                    Console.ForegroundColor = ConsoleColor.Black;
-                    Console.BackgroundColor = ConsoleColor.DarkRed;
-                    Console.WriteLine("Here comes a customer.");
-                    Console.WriteLine("I'll buy a lemonade for {0}.", recipe.price);
-                    Console.WriteLine("Yum.");
-                    money.moneyLeft = money.moneyLeft + (Convert.ToDecimal(recipe.price));
-                    Console.WriteLine("You have {0}.", money.moneyLeft);
+                    inventory.CheckInventory(recipe, game, store, money, inventory, customer, weather, day);
+                    if (weather.weatherNumber == 1 || weather.weatherNumber == 4 || weather.weatherNumber == 5 && recipe.price <= .80)
+                    {
+                        willBuy = true;
+                        inventory.SubtractInventory(recipe);
+                        money.moneyLeft = money.moneyLeft + recipe.price;
+                    }
+                    else if (weather.weatherNumber == 2 || weather.weatherNumber == 3 && recipe.price <= .10)
+                    {
+                        willBuy = true;
+                        inventory.SubtractInventory(recipe);
+                        money.moneyLeft = money.moneyLeft + recipe.price;
+                    }
+                    else willBuy = false;
                 }
-                else if (customerToday >= 1 && weather.weatherToday == "windy")
+                else if (randomCustomer >= 21 && randomCustomer <= 30)
                 {
-                    Console.ForegroundColor = ConsoleColor.Black;
-                    Console.BackgroundColor = ConsoleColor.Blue;
-                    Console.WriteLine("Here comes a customer.");
-                    Console.WriteLine("I won't buy a lemonade today.");
-                    Console.WriteLine("Yuck.");
-                    Console.WriteLine("You have {0}.", money.moneyLeft);
+                    inventory.CheckInventory(recipe, game, store, money, inventory, customer, weather, day);
+                    if (weather.weatherNumber == 1 || weather.weatherNumber == 4 || weather.weatherNumber == 5 && recipe.price <= .60)
+                    {
+                        willBuy = true;
+                        inventory.SubtractInventory(recipe);
+                        money.moneyLeft = money.moneyLeft + recipe.price;
+                    }
+                    else if (weather.weatherNumber == 2 || weather.weatherNumber == 3 && recipe.price <= .15)
+                    {
+                        willBuy = true;
+                        inventory.SubtractInventory(recipe);
+                        money.moneyLeft = money.moneyLeft + recipe.price;
+                    }
+                    else willBuy = false;
                 }
-                else if (customerToday >= 1 && weather.weatherToday == "rainy")
+                else if (randomCustomer >= 31 && randomCustomer <= 40)
                 {
-                    Console.ForegroundColor = ConsoleColor.Black;
-                    Console.BackgroundColor = ConsoleColor.DarkBlue;
-                    Console.WriteLine("Here comes a customer.");
-                    Console.WriteLine("No lemonade for me.");
-                    Console.WriteLine("Yuck.");
-                    Console.WriteLine("You have {0}.", money.moneyLeft);
+                    inventory.CheckInventory(recipe, game, store, money, inventory, customer, weather, day);
+                    if (weather.weatherNumber == 1 || weather.weatherNumber == 4 || weather.weatherNumber == 5 && recipe.price <= .40)
+                    {
+                        willBuy = true;
+                        inventory.SubtractInventory(recipe);
+                        money.moneyLeft = money.moneyLeft + recipe.price;
+                    }
+                    else if (weather.weatherNumber == 2 || weather.weatherNumber == 3 && recipe.price <= .20)
+                    {
+                        willBuy = true;
+                        inventory.SubtractInventory(recipe);
+                        money.moneyLeft = money.moneyLeft + recipe.price;
+                    }
+                    else willBuy = false;
+                }
+                else if (randomCustomer >= 41 && randomCustomer <= 50)
+                {
+                    inventory.CheckInventory(recipe, game, store, money, inventory, customer, weather, day);
+                    if (weather.weatherNumber == 1 || weather.weatherNumber == 4 || weather.weatherNumber == 5 && recipe.price <= .20)
+                    {
+                        willBuy = true;
+                        inventory.SubtractInventory(recipe);
+                        money.moneyLeft = money.moneyLeft + recipe.price;
+                    }
+                    else if (weather.weatherNumber == 2 || weather.weatherNumber == 3 && recipe.price <= .25)
+                    {
+                        willBuy = true;
+                        inventory.SubtractInventory(recipe);
+                        money.moneyLeft = money.moneyLeft + recipe.price;
+                    }
+                    else willBuy = false;
                 }
             }
+            money.ShowMoney(customer, inventory, money, recipe);
+            game.ShowProfit(money);
+            return randomCustomer;
         }
     }
 }

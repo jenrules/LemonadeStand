@@ -6,15 +6,18 @@ using System.Threading.Tasks;
 
 namespace LemonadeStand
 {
-    class Player
+    public class Player
     {
-        string name;
-
-        public void GetName() 
+        public Player()
+        { }
+        public string GetName(Recipe recipe, Weather weather, Game game, Money money, Store store, Inventory inventory, Customer customer)
         {
             Console.WriteLine("What is your name?");
-            name = Console.ReadLine();
-            Console.WriteLine("Welcome {0}.", name);
+            string playerName = Console.ReadLine();
+            Console.WriteLine("Welcome {0}.", playerName);
+            Rules rules = new Rules();
+            rules.ShowRules(recipe, weather, game, money, store, inventory, customer);
+            return playerName;
         }
     }
 }

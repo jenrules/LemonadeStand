@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LemonadeStand", "LemonadeStand\LemonadeStand.csproj", "{3D9448EE-4893-41D6-8AD4-434287603BB1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lemonadeTest", "lemonadeTest\lemonadeTest.csproj", "{60A952BD-72CA-45F3-AFA1-D523CD4AE5D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LemonadeStandTests", "LemonadeStandTests\LemonadeStandTests.csproj", "{6D196DAE-AB98-41A2-A708-CDF6B0FFC746}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{3D9448EE-4893-41D6-8AD4-434287603BB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D9448EE-4893-41D6-8AD4-434287603BB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D9448EE-4893-41D6-8AD4-434287603BB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60A952BD-72CA-45F3-AFA1-D523CD4AE5D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60A952BD-72CA-45F3-AFA1-D523CD4AE5D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60A952BD-72CA-45F3-AFA1-D523CD4AE5D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60A952BD-72CA-45F3-AFA1-D523CD4AE5D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D196DAE-AB98-41A2-A708-CDF6B0FFC746}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D196DAE-AB98-41A2-A708-CDF6B0FFC746}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D196DAE-AB98-41A2-A708-CDF6B0FFC746}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D196DAE-AB98-41A2-A708-CDF6B0FFC746}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
